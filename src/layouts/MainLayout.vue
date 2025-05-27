@@ -1,102 +1,218 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout view="lHr Lpr lFr">
+    <!-- Desktop Sidebar -->
+    <SidebarNavigation
+      v-model:drawerOpen="leftDrawerOpen"
+      :menuItems="menuItems"
+      @menu-selected="setActiveMenu"
+    />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+    <!-- Mobile Header -->
+    <q-header v-if="$q.screen.lt.md" class="mobile-header">
+      <q-toolbar class="mobile-toolbar">
+        <div class="mobile-status-bar">
+          <div class="signal-battery">
+            <span class="signal">GS</span>
+            <q-icon name="signal_cellular_4_bar" size="xs" />
+            <q-icon name="wifi" size="xs" />
+          </div>
+          <div class="time">9:41 AM</div>
+          <div class="battery-section">
+            <q-icon name="bluetooth" size="xs" />
+            <span class="battery-percentage">58%</span>
+            <q-icon name="battery_std" size="xs" />
+          </div>
+        </div>
+        <div class="header-content q-mt-md">
+          <q-btn flat round icon="keyboard_arrow_up" color="green" class="aspire-logo-btn" />
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
-      <router-view />
+      <q-page :class="$q.screen.lt.md ? 'mobile-page' : 'desktop-page'">
+        <!-- Mobile Layout -->
+
+        <div v-if="$q.screen.lt.md" class="mobile-layout">
+          <MobileBalanceSection :balance="balance" @new-card="handleNewCard" />
+          <MobileCardSection
+            :cardInfo="cardInfo"
+            :showCardNumber="showCardNumber"
+            @toggle-card-number="toggleCardNumber"
+          />
+          <MobileCardActions />
+          <MobileTransactionPanel :transactions="transactions" />
+        </div>
+
+        <!-- Desktop Layout -->
+        <div v-else class="desktop-layout q-pa-lg bg-grey-1">
+          <div class="row q-gutter-lg">
+            <div class="col-12 col-md-7">
+              <BalanceSection :balance="balance" @new-card="handleNewCard" />
+              <CardSection
+                :cardInfo="cardInfo"
+                :showCardNumber="showCardNumber"
+                @toggle-card-number="toggleCardNumber"
+              />
+            </div>
+            <div class="col-12 col-md-4">
+              <TransactionPanel :transactions="transactions" />
+            </div>
+          </div>
+        </div>
+      </q-page>
     </q-page-container>
+
+    <!-- Mobile Bottom Navigation -->
+    <q-footer v-if="$q.screen.lt.md" class="mobile-footer">
+      <MobileBottomNavigation :menuItems="menuItems" @menu-selected="setActiveMenu" />
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { ref, reactive, computed } from 'vue';
+import { useQuasar } from 'quasar';
+import SidebarNavigation from 'src/components/SidebarNavigation.vue';
+import BalanceSection from 'src/components/BalanceSection.vue';
+import CardSection from 'src/components/CardSection.vue';
+import TransactionPanel from 'src/components/TransactionPanel.vue';
+import MobileBalanceSection from 'src/components/mobile/MobileBalanceSection.vue';
+import MobileCardSection from 'src/components/mobile/MobileCardSection.vue';
+import MobileCardActions from 'src/components/mobile/MobileCardActions.vue';
+import MobileTransactionPanel from 'src/components/mobile/MobileTransactionPanel.vue';
+import MobileBottomNavigation from 'src/components/mobile/MobileBottomNavigation.vue';
+import type { MenuItem, CardInfo, Transaction } from '../types';
 
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+const $q = useQuasar();
 
-const leftDrawerOpen = ref(false);
+const leftDrawerOpen = computed({
+  get: () => !$q.screen.lt.md,
+  set: () => {},
+});
 
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
+const showCardNumber = ref(false);
+const balance = ref(3000);
+
+const menuItems = ref<MenuItem[]>([
+  { label: 'Home', icon: 'home', active: false },
+  { label: 'Cards', icon: 'credit_card', active: true },
+  { label: 'Payments', icon: 'payments', active: false },
+  { label: 'Credit', icon: 'trending_up', active: false },
+  { label: 'Profile', icon: 'person', active: false },
+]);
+
+const cardInfo = reactive<CardInfo>({
+  holderName: 'Mark Henry',
+  number: '•••• •••• •••• 2020',
+  lastFour: '2020',
+  expiry: '12/20',
+  cvv: '***',
+  frozen: true,
+});
+
+const transactions = ref<Transaction[]>([
+  {
+    id: 1,
+    merchant: 'Hamleys',
+    date: '20 May 2020',
+    amount: 150,
+    type: 'Refund on debit card',
+    icon: 'store',
+    iconColor: 'blue',
+  },
+  {
+    id: 2,
+    merchant: 'Hamleys',
+    date: '20 May 2020',
+    amount: -150,
+    type: 'Charged to debit card',
+    icon: 'flight_takeoff',
+    iconColor: 'green',
+  },
+  {
+    id: 3,
+    merchant: 'Hamleys',
+    date: '20 May 2020',
+    amount: -150,
+    type: 'Charged to debit card',
+    icon: 'shopping_bag',
+    iconColor: 'pink',
+  },
+  {
+    id: 4,
+    merchant: 'Hamleys',
+    date: '20 May 2020',
+    amount: -150,
+    type: 'Charged to debit card',
+    icon: 'store',
+    iconColor: 'blue',
+  },
+]);
+
+const setActiveMenu = (label: string) => {
+  menuItems.value.forEach((item) => {
+    item.active = item.label === label;
+  });
+};
+
+const toggleCardNumber = () => {
+  showCardNumber.value = !showCardNumber.value;
+};
+
+const handleNewCard = () => {
+  console.log('Create new card');
+};
 </script>
+
+<style scoped>
+.mobile-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: white;
+}
+
+.mobile-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.signal-battery {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.battery-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.aspire-logo-btn {
+  background: rgba(0, 212, 170, 0.2);
+}
+
+.mobile-page {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  min-height: 100vh;
+  padding: 0;
+}
+
+.desktop-page {
+  background: #f5f5f5;
+}
+
+.mobile-layout {
+  padding: 1rem;
+  padding-bottom: 80px; /* Space for bottom navigation */
+}
+
+.mobile-footer {
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+</style>
