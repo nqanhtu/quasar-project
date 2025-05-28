@@ -21,10 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import type { MenuItem } from '../../types';
 
-const props = defineProps<{
+defineProps<{
   menuItems: MenuItem[];
 }>();
 

@@ -45,7 +45,7 @@
         </div>
 
         <!-- Desktop Layout -->
-        <div v-else class="desktop-layout q-pa-lg bg-grey-1">
+        <div v-else class="desktop-layout bg-grey-1">
           <div class="row q-gutter-lg">
             <div class="col-12 col-md-7">
               <BalanceSection :balance="balance" @new-card="handleNewCard" />
@@ -83,6 +83,11 @@ import MobileCardActions from 'src/components/mobile/MobileCardActions.vue';
 import MobileTransactionPanel from 'src/components/mobile/MobileTransactionPanel.vue';
 import MobileBottomNavigation from 'src/components/mobile/MobileBottomNavigation.vue';
 import type { MenuItem, CardInfo, Transaction } from '../types';
+import IconCard from 'src/components/icons/IconCard.vue';
+import IconPayments from 'src/components/icons/IconPayments.vue';
+import IconAccount from 'src/components/icons/IconAccount.vue';
+import IconHome from 'src/components/icons/IconHome.vue';
+import IconCredit from 'src/components/icons/IconCredit.vue';
 
 const $q = useQuasar();
 
@@ -95,11 +100,15 @@ const showCardNumber = ref(false);
 const balance = ref(3000);
 
 const menuItems = ref<MenuItem[]>([
-  { label: 'Home', icon: 'home', active: false },
-  { label: 'Cards', icon: 'credit_card', active: true },
-  { label: 'Payments', icon: 'payments', active: false },
-  { label: 'Credit', icon: 'trending_up', active: false },
-  { label: 'Profile', icon: 'person', active: false },
+  {
+    label: 'Home',
+    icon: IconHome,
+    active: false,
+  },
+  { label: 'Cards', icon: IconCard, active: true },
+  { label: 'Payments', icon: IconPayments, active: false },
+  { label: 'Credit', icon: IconCredit, active: false },
+  { label: 'Settings', icon: IconAccount, active: false },
 ]);
 
 const cardInfo = reactive<CardInfo>({
@@ -204,6 +213,7 @@ const handleNewCard = () => {
 
 .desktop-page {
   background: #f5f5f5;
+  margin-top: 59px;
 }
 
 .mobile-layout {

@@ -5,9 +5,9 @@
     bordered
     behavior="desktop"
     class="sidebar-drawer"
-    :width="280"
+    :width="340"
   >
-    <div class="q-pa-lg">
+    <div class="q-pa-xl">
       <SidebarHeader />
       <NavigationMenu :menuItems="menuItems" @menu-selected="$emit('menu-selected', $event)" />
     </div>

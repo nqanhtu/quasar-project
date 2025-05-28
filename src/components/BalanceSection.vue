@@ -1,11 +1,21 @@
 <template>
-  <div class="bg-white rounded-borders q-pa-lg q-mb-lg">
+  <div class="bg-white rounded-borders">
     <div class="row items-center justify-between q-mb-md">
       <div>
-        <div class="text-subtitle2 text-grey-7 q-mb-xs">Available balance</div>
-        <div class="flex items-center">
-          <q-chip color="green" text-color="white" size="sm" class="q-mr-sm"> S$ </q-chip>
-          <span class="text-h4 text-weight-bold">{{ formatBalance(balance) }}</span>
+        <div class="text-subtitle2 balance-text">Available balance</div>
+        <div class="flex items-center balance-value">
+          <q-chip
+            color="primary"
+            square
+            text-color="white"
+            size="13px"
+            class="text-bold q-ma-none balance-dollar"
+          >
+            S$
+          </q-chip>
+          <span class="text-weight-bold" :style="{ fontSize: '26px' }">{{
+            formatBalance(balance)
+          }}</span>
         </div>
       </div>
       <q-btn
@@ -34,8 +44,22 @@ const formatBalance = (amount: number): string => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .rounded-borders {
   border-radius: 12px;
+}
+
+.balance-text {
+  color: $text-primary;
+}
+
+.balance-value {
+  margin-top: 9;
+  gap: 12px;
+}
+
+.balance-dollar {
+  line-height: 16px;
+  padding: 2px 13px;
 }
 </style>

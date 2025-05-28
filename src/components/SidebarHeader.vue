@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div class="flex items-center q-mb-xl">
-      <q-icon name="home" size="md" class="q-mr-sm" />
-      <span class="text-h5 text-weight-bold">aspire</span>
+    <div class="flex items-center">
+      <q-img src="icons/aspire-logo.svg" fit="contain" height="35px" width="125px" />
     </div>
 
-    <div class="text-caption q-mb-lg company-description">
+    <div class="company-description">
       Trusted way of banking for 3,000+<br />
       SMEs and startups in Singapore
     </div>
@@ -14,6 +13,9 @@
 
 <style scoped>
 .company-description {
-  opacity: 0.8;
+  opacity: 0.3;
+  font-size: 15px;
+  margin-top: 19px;
+  line-height: 20px;
 }
 </style>

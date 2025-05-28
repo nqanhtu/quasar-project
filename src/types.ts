@@ -1,6 +1,8 @@
+import type { Component } from 'vue';
+
 export interface MenuItem {
   label: string;
-  icon: string;
+  icon: Component;
   active: boolean;
 }
 
