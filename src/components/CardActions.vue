@@ -63,6 +63,7 @@ const handleAction = (actionLabel: string) => {
   margin-top: 1rem;
   background: #edf3ff;
   border-radius: 16px;
+  width: 414px;
 }
 
 .card-action-btn {

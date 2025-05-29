@@ -1,27 +1,20 @@
 <template>
-  <div class="bg-white rounded-borders q-pa-lg">
-    <q-separator class="q-my-lg" />
-
+  <div class="q-pa-lg">
     <q-expansion-item
-      expand-separator
       icon="img:icons/card-details.svg"
       label="Card details"
       expand-icon="img:icons/down-arrow.svg"
+      header-class="header"
     >
-      <q-card>
-        <q-card-section>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos
-          corrupti commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto
-          suscipit iste eveniet doloribus ullam aliquid.
-        </q-card-section>
-      </q-card>
     </q-expansion-item>
 
     <q-expansion-item
-      expand-separator
+      style="margin-top: 24px"
       icon="img:icons/transaction.svg"
       label="Recent transactions"
       expand-icon="img:icons/down-arrow.svg"
+      header-class="header"
+      class="expansion-item"
     >
       <TransactionList :transactions="transactions" />
     </q-expansion-item>
@@ -37,8 +30,16 @@ defineProps<{
 }>();
 </script>
 
-<style scoped>
-.rounded-borders {
-  border-radius: 12px;
+<style lang="scss">
+.expansion-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+.header {
+  background: #f5f9ff !important;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 </style>

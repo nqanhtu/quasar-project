@@ -1,10 +1,15 @@
 <template>
   <div class="transactions-list">
     <TransactionItem
-      v-for="transaction in transactions"
+      v-for="(transaction, index) in transactions"
       :key="transaction.id"
       :transaction="transaction"
+      :index="index"
     />
+
+    <div class="q-py-md text-center bg-green-1 text-primary text-bold cursor-pointer">
+      View all card transactions
+    </div>
   </div>
 </template>
 

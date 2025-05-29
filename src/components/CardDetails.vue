@@ -3,10 +3,11 @@
     <div class="thru">Thru: 12/20</div>
     <div class="cvv">CVV: <span class="cvv-value">***</span></div>
   </div>
-  <div class="logo-visa">VISA</div>
+  <div class="logo-visa"><IconVisa /></div>
 </template>
 
 <script setup lang="ts">
+import IconVisa from './icons/IconVisa.vue';
 defineProps<{
   expiry: string;
   cvv: string;

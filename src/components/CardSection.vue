@@ -3,10 +3,12 @@
     <CardTabs />
     <div class="card-section shadow-2">
       <div class="row">
-        <div class="col-6">
+        <div class="col-6 relative-position">
           <CardNumberToggle
             :showCardNumber="showCardNumber"
             @toggle="$emit('toggle-card-number')"
+            class="absolute"
+            style="top: -18px; right: 0"
           />
 
           <q-carousel
@@ -17,16 +19,9 @@
             animated
             control-color="primary"
             navigation
-            padding
-            arrows
-            height="300px"
+            height="350px"
           >
-            <q-carousel-slide
-              :name="item.id"
-              class="column no-wrap flex-center"
-              v-for="item in cardStore.cards"
-              :key="item.id"
-            >
+            <q-carousel-slide :name="item.id" v-for="item in cardStore.cards" :key="item.id">
               <CreditCard class="credit-card" :cardInfo="item" :showCardNumber="showCardNumber" />
             </q-carousel-slide>
           </q-carousel>
@@ -74,8 +69,8 @@ const transactions = ref<Transaction[]>([
     date: '20 May 2020',
     amount: 150,
     type: 'Refund on debit card',
-    icon: 'store',
-    iconColor: 'blue',
+    icon: 'icons/file-storage.svg',
+    iconColor: 'file-storage',
   },
   {
     id: 2,
@@ -83,8 +78,8 @@ const transactions = ref<Transaction[]>([
     date: '20 May 2020',
     amount: -150,
     type: 'Charged to debit card',
-    icon: 'flight_takeoff',
-    iconColor: 'green',
+    icon: 'icons/flights.svg',
+    iconColor: 'flights',
   },
   {
     id: 3,
@@ -92,8 +87,8 @@ const transactions = ref<Transaction[]>([
     date: '20 May 2020',
     amount: -150,
     type: 'Charged to debit card',
-    icon: 'shopping_bag',
-    iconColor: 'pink',
+    icon: 'icons/megaphone.svg',
+    iconColor: 'megaphone',
   },
   {
     id: 4,
@@ -101,8 +96,8 @@ const transactions = ref<Transaction[]>([
     date: '20 May 2020',
     amount: -150,
     type: 'Charged to debit card',
-    icon: 'store',
-    iconColor: 'blue',
+    icon: 'icons/file-storage.svg',
+    iconColor: 'file-storage',
   },
 ]);
 
@@ -123,9 +118,5 @@ defineEmits<{
   padding-left: 40px;
   padding-top: 31.5px;
   padding-bottom: 40px;
-}
-
-.credit-card {
-  margin-top: 12px;
 }
 </style>

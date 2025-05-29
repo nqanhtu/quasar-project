@@ -9,7 +9,7 @@
       <q-icon color="white" size="xs">
         <IconBox />
       </q-icon>
-      <div class="new-card">New card</div>
+      <div class="new-card q-ml-sm">New card</div>
     </q-btn>
 
     <q-dialog v-model="showDialog" persistent>
