@@ -8,14 +8,12 @@
 
     <q-page-container>
       <q-page class="desktop-page">
-        <div class="desktop-layout">
-          <BalanceSection :balance="balance" @new-card="handleNewCard" />
-          <CardSection
-            :showCardNumber="showCardNumber"
-            @toggle-card-number="toggleCardNumber"
-            style="margin-top: 34px"
-          />
-        </div>
+        <BalanceSection :balance="balance" @new-card="handleNewCard" />
+        <CardSection
+          :showCardNumber="showCardNumber"
+          @toggle-card-number="toggleCardNumber"
+          style="margin-top: 34px"
+        />
       </q-page>
     </q-page-container>
   </q-layout>

@@ -2,33 +2,41 @@
   <div>
     <CardTabs />
     <div class="card-section shadow-2">
-      <div class="row">
-        <div class="col-6 relative-position">
+      <div class="flex card-wrapper">
+        <div class="flex-grow relative-position">
           <CardNumberToggle
             :showCardNumber="showCardNumber"
             @toggle="$emit('toggle-card-number')"
             class="absolute"
-            style="top: -18px; right: 0"
+            style="top: -30px; right: 17px"
           />
 
           <q-carousel
             v-model="slide"
-            transition-prev="scale"
-            transition-next="scale"
+            transition-prev="jump-right"
+            transition-next="jump-left"
             swipeable
             animated
             control-color="primary"
             navigation
-            height="350px"
+            height="310px"
+            style="display: inline-block"
           >
-            <q-carousel-slide :name="item.id" v-for="item in cardStore.cards" :key="item.id">
+            <q-carousel-slide
+              :name="item.id"
+              v-for="item in cardStore.cards"
+              :key="item.id"
+              class="carousel-slide"
+            >
               <CreditCard class="credit-card" :cardInfo="item" :showCardNumber="showCardNumber" />
             </q-carousel-slide>
           </q-carousel>
 
           <CardActions v-if="card" :cardId="slide" />
         </div>
-        <div class="col-6"><TransactionPanel :transactions="transactions" /></div>
+        <div class="flex-grow min-width-transactions">
+          <TransactionPanel :transactions="transactions" />
+        </div>
       </div>
     </div>
   </div>
@@ -116,7 +124,31 @@ defineEmits<{
   box-shadow: 0px 2px 12px rgba(100, 100, 100, 0.2);
   margin-top: 16px;
   padding-left: 40px;
-  padding-top: 31.5px;
+  padding-top: 60.5px;
   padding-bottom: 40px;
+}
+
+.carousel-slide {
+  padding: 0px;
+}
+
+.card-wrapper {
+  justify-content: center;
+  gap: 28px;
+}
+
+.col-a {
+}
+
+.col-b {
+  flex: 1 1 200px;
+}
+
+.min-width-transactions {
+  min-width: 300px;
+  max-width: 460px;
+}
+.flex-grow {
+  flex: 1 1 0%;
 }
 </style>

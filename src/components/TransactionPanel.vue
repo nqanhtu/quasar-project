@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-lg">
+  <div class="q-px-lg">
     <q-expansion-item
       icon="img:icons/card-details.svg"
       label="Card details"
@@ -9,6 +9,7 @@
     </q-expansion-item>
 
     <q-expansion-item
+      default-opened
       style="margin-top: 24px"
       icon="img:icons/transaction.svg"
       label="Recent transactions"
