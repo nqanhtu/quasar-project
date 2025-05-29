@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white rounded-borders">
-    <div class="row items-center justify-between q-mb-md">
+  <div class="rounded-borders">
+    <div class="row items-center justify-between">
       <div>
         <div class="text-subtitle2 balance-text">Available balance</div>
         <div class="flex items-center balance-value">
@@ -18,19 +18,14 @@
           }}</span>
         </div>
       </div>
-      <q-btn
-        color="primary"
-        label="New card"
-        icon="add"
-        unelevated
-        class="q-px-lg"
-        @click="$emit('new-card')"
-      />
+      <NewCard />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import NewCard from './NewCard.vue';
+
 defineProps<{
   balance: number;
 }>();
@@ -61,5 +56,11 @@ const formatBalance = (amount: number): string => {
 .balance-dollar {
   line-height: 16px;
   padding: 2px 13px;
+}
+
+.new-card {
+  font-weight: bold;
+  font-size: 13px;
+  margin-left: 8px;
 }
 </style>

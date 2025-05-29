@@ -1,31 +1,33 @@
 <template>
   <div>
-    <q-item class="q-pa-none q-mb-lg" clickable v-ripple>
-      <q-item-section avatar>
-        <q-avatar color="blue-1" text-color="primary">
-          <q-icon name="credit_card" />
-        </q-avatar>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label class="text-weight-medium">Card details</q-item-label>
-      </q-item-section>
-      <q-item-section side>
-        <q-icon name="chevron_right" color="grey-5" />
-      </q-item-section>
-    </q-item>
+    <q-expansion-item
+      expand-separator
+      icon="img:icons/card-details.svg"
+      label="Card details"
+      expand-icon="img:icons/down-arrow.svg"
+    >
+      <q-card>
+        <q-card-section>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos
+          corrupti commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto
+          suscipit iste eveniet doloribus ullam aliquid.
+        </q-card-section>
+      </q-card>
+    </q-expansion-item>
 
-    <q-item class="q-pa-none q-mb-lg" clickable v-ripple>
-      <q-item-section avatar>
-        <q-avatar color="blue-1" text-color="primary">
-          <q-icon name="receipt_long" />
-        </q-avatar>
-      </q-item-section>
-      <q-item-section>
-        <q-item-label class="text-weight-medium">Recent transactions</q-item-label>
-      </q-item-section>
-      <q-item-section side>
-        <q-icon name="chevron_right" color="grey-5" />
-      </q-item-section>
-    </q-item>
+    <q-expansion-item
+      expand-separator
+      icon="img:icons/transaction.svg"
+      label="Recent transactions"
+      expand-icon="img:icons/down-arrow.svg"
+    >
+      <q-card>
+        <q-card-section>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos
+          corrupti commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto
+          suscipit iste eveniet doloribus ullam aliquid.
+        </q-card-section>
+      </q-card>
+    </q-expansion-item>
   </div>
 </template>

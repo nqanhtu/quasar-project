@@ -1,5 +1,5 @@
 <template>
-  <div class="text-h5 text-weight-medium q-mb-lg">
+  <div class="text-h5 text-bold q-mb-lg">
     {{ name }}
   </div>
 </template>

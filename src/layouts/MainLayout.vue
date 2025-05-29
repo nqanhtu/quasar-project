@@ -31,58 +31,46 @@
 
     <q-page-container>
       <q-page :class="$q.screen.lt.md ? 'mobile-page' : 'desktop-page'">
-        <!-- Mobile Layout -->
-
         <div v-if="$q.screen.lt.md" class="mobile-layout">
-          <MobileBalanceSection :balance="balance" @new-card="handleNewCard" />
+          <!-- <MobileBalanceSection :balance="balance" @new-card="handleNewCard" />
           <MobileCardSection
             :cardInfo="cardInfo"
             :showCardNumber="showCardNumber"
             @toggle-card-number="toggleCardNumber"
           />
           <MobileCardActions />
-          <MobileTransactionPanel :transactions="transactions" />
+          <MobileTransactionPanel :transactions="transactions" /> -->
         </div>
 
-        <!-- Desktop Layout -->
-        <div v-else class="desktop-layout bg-grey-1">
-          <div class="row q-gutter-lg">
-            <div class="col-12 col-md-7">
-              <BalanceSection :balance="balance" @new-card="handleNewCard" />
-              <CardSection
-                :cardInfo="cardInfo"
-                :showCardNumber="showCardNumber"
-                @toggle-card-number="toggleCardNumber"
-              />
-            </div>
-            <div class="col-12 col-md-4">
-              <TransactionPanel :transactions="transactions" />
-            </div>
-          </div>
+        <div v-else class="desktop-layout">
+          <BalanceSection :balance="balance" @new-card="handleNewCard" />
+          <CardSection
+            :showCardNumber="showCardNumber"
+            @toggle-card-number="toggleCardNumber"
+            style="margin-top: 34px"
+          />
         </div>
       </q-page>
     </q-page-container>
 
-    <!-- Mobile Bottom Navigation -->
-    <q-footer v-if="$q.screen.lt.md" class="mobile-footer">
+    <!-- <q-footer v-if="$q.screen.lt.md" class="mobile-footer">
       <MobileBottomNavigation :menuItems="menuItems" @menu-selected="setActiveMenu" />
-    </q-footer>
+    </q-footer> -->
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useQuasar } from 'quasar';
 import SidebarNavigation from 'src/components/SidebarNavigation.vue';
 import BalanceSection from 'src/components/BalanceSection.vue';
 import CardSection from 'src/components/CardSection.vue';
-import TransactionPanel from 'src/components/TransactionPanel.vue';
-import MobileBalanceSection from 'src/components/mobile/MobileBalanceSection.vue';
-import MobileCardSection from 'src/components/mobile/MobileCardSection.vue';
-import MobileCardActions from 'src/components/mobile/MobileCardActions.vue';
-import MobileTransactionPanel from 'src/components/mobile/MobileTransactionPanel.vue';
-import MobileBottomNavigation from 'src/components/mobile/MobileBottomNavigation.vue';
-import type { MenuItem, CardInfo, Transaction } from '../types';
+// import MobileBalanceSection from 'src/components/mobile/MobileBalanceSection.vue';
+// import MobileCardSection from 'src/components/mobile/MobileCardSection.vue';
+// import MobileCardActions from 'src/components/mobile/MobileCardActions.vue';
+// import MobileTransactionPanel from 'src/components/mobile/MobileTransactionPanel.vue';
+// import MobileBottomNavigation from 'src/components/mobile/MobileBottomNavigation.vue';
+import type { MenuItem } from '../types';
 import IconCard from 'src/components/icons/IconCard.vue';
 import IconPayments from 'src/components/icons/IconPayments.vue';
 import IconAccount from 'src/components/icons/IconAccount.vue';
@@ -109,54 +97,6 @@ const menuItems = ref<MenuItem[]>([
   { label: 'Payments', icon: IconPayments, active: false },
   { label: 'Credit', icon: IconCredit, active: false },
   { label: 'Settings', icon: IconAccount, active: false },
-]);
-
-const cardInfo = reactive<CardInfo>({
-  holderName: 'Mark Henry',
-  number: '•••• •••• •••• 2020',
-  lastFour: '2020',
-  expiry: '12/20',
-  cvv: '***',
-  frozen: true,
-});
-
-const transactions = ref<Transaction[]>([
-  {
-    id: 1,
-    merchant: 'Hamleys',
-    date: '20 May 2020',
-    amount: 150,
-    type: 'Refund on debit card',
-    icon: 'store',
-    iconColor: 'blue',
-  },
-  {
-    id: 2,
-    merchant: 'Hamleys',
-    date: '20 May 2020',
-    amount: -150,
-    type: 'Charged to debit card',
-    icon: 'flight_takeoff',
-    iconColor: 'green',
-  },
-  {
-    id: 3,
-    merchant: 'Hamleys',
-    date: '20 May 2020',
-    amount: -150,
-    type: 'Charged to debit card',
-    icon: 'shopping_bag',
-    iconColor: 'pink',
-  },
-  {
-    id: 4,
-    merchant: 'Hamleys',
-    date: '20 May 2020',
-    amount: -150,
-    type: 'Charged to debit card',
-    icon: 'store',
-    iconColor: 'blue',
-  },
 ]);
 
 const setActiveMenu = (label: string) => {
@@ -212,8 +152,11 @@ const handleNewCard = () => {
 }
 
 .desktop-page {
-  background: #f5f5f5;
+  background: #fff;
   margin-top: 59px;
+  max-width: 906px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mobile-layout {

@@ -1,24 +1,11 @@
 <template>
-  <div class="flex justify-between items-start q-mb-lg">
-    <div class="flex items-center">
-      <q-icon name="home" size="sm" class="q-mr-xs" />
-      <span class="text-weight-bold">aspire</span>
-    </div>
-    <q-icon v-if="frozen" name="ac_unit" size="sm" color="orange" class="frozen-indicator" />
+  <div class="flex justify-end items-center q-mb-lg">
+    <IconAspire fill="white" width="83.52px" height="23.7px" />
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  frozen: boolean;
-}>();
+import IconAspire from './icons/IconAspire.vue';
 </script>
 
-<style scoped>
-.frozen-indicator {
-  background-color: orange;
-  color: white;
-  border-radius: 50%;
-  padding: 4px;
-}
-</style>
+<style scoped></style>

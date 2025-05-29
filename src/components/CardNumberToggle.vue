@@ -1,7 +1,10 @@
 <template>
-  <div class="flex items-center q-mb-lg">
-    <q-icon name="visibility" color="green" size="sm" class="q-mr-sm" />
-    <span class="text-green text-weight-medium cursor-pointer toggle-text" @click="$emit('toggle')">
+  <div class="flex items-center justify-end">
+    <q-icon name="visibility" color="primary" size="16px" class="q-mr-sm" />
+    <span
+      class="text-primary text-caption text-bold cursor-pointer toggle-text"
+      @click="$emit('toggle')"
+    >
       {{ showCardNumber ? 'Hide' : 'Show' }} card number
     </span>
   </div>
@@ -16,9 +19,3 @@ defineEmits<{
   toggle: [];
 }>();
 </script>
-
-<style scoped>
-.toggle-text:hover {
-  text-decoration: underline;
-}
-</style>

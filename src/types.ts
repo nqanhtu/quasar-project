@@ -6,15 +6,6 @@ export interface MenuItem {
   active: boolean;
 }
 
-export interface CardInfo {
-  holderName: string;
-  number: string;
-  lastFour: string;
-  expiry: string;
-  cvv: string;
-  frozen: boolean;
-}
-
 export interface CardAction {
   label: string;
   icon: string;
@@ -29,4 +20,13 @@ export interface Transaction {
   type: string;
   icon: string;
   iconColor: string;
+}
+
+export interface CardInfo {
+  id: number;
+  cardHolder: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  frozen: boolean;
 }

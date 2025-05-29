@@ -47,13 +47,12 @@
 
           <!-- Card Holder Name -->
           <div class="text-h4 text-weight-medium q-mb-xl">
-            {{ cardInfo.holderName }}
+            {{ cardInfo.cardHolder }}
           </div>
 
           <!-- Card Number -->
           <div class="card-number q-mb-lg">
-            <span v-if="showCardNumber">{{ cardInfo.number }}</span>
-            <span v-else>•••• •••• •••• {{ cardInfo.lastFour }}</span>
+            <span v-if="showCardNumber">{{ cardInfo.cardNumber }}</span>
           </div>
 
           <!-- Card Details -->
