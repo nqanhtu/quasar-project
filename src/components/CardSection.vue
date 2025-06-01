@@ -3,34 +3,36 @@
     <CardTabs />
     <div class="card-section shadow-2">
       <div class="flex card-wrapper">
-        <div class="flex-grow relative-position">
-          <CardNumberToggle
-            :showCardNumber="showCardNumber"
-            @toggle="$emit('toggle-card-number')"
-            class="absolute"
-            style="top: -30px; right: 17px"
-          />
-
-          <q-carousel
-            v-model="slide"
-            transition-prev="jump-right"
-            transition-next="jump-left"
-            swipeable
-            animated
-            control-color="primary"
-            navigation
-            height="310px"
-            style="display: inline-block"
-          >
-            <q-carousel-slide
-              :name="item.id"
-              v-for="item in cardStore.cards"
-              :key="item.id"
-              class="carousel-slide"
+        <div class="flex-grow flex column items-center">
+          <div class="relative-position">
+            <CardNumberToggle
+              :showCardNumber="showCardNumber"
+              @toggle="$emit('toggle-card-number')"
+              class="absolute"
+              style="top: -30px; right: 0px"
+            />
+            <q-carousel
+              v-model="slide"
+              transition-prev="jump-right"
+              transition-next="jump-left"
+              swipeable
+              animated
+              control-color="primary"
+              navigation
+              height="310px"
+              style="display: inline-block"
+              class=""
             >
-              <CreditCard class="credit-card" :cardInfo="item" :showCardNumber="showCardNumber" />
-            </q-carousel-slide>
-          </q-carousel>
+              <q-carousel-slide
+                :name="item.id"
+                v-for="item in cardStore.cards"
+                :key="item.id"
+                class="carousel-slide"
+              >
+                <CreditCard class="credit-card" :cardInfo="item" :showCardNumber="showCardNumber" />
+              </q-carousel-slide>
+            </q-carousel>
+          </div>
 
           <CardActions v-if="card" :cardId="slide" />
         </div>
